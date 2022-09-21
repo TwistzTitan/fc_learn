@@ -6,9 +6,7 @@ COPY  . .
 
 RUN go build hello-world.go
 
-FROM alpine
-
-WORKDIR /root/
+FROM scratch
 
 COPY --from=builder /app/hello-world ./
 

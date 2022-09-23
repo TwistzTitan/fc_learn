@@ -1,0 +1,8 @@
+{
+    "connection":{
+        "host":"mysql-db",
+        "password": "root",
+        "user":"root",
+        "database":"nodedb"
+    }
+}

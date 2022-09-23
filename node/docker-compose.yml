@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  
+  app:
+    build:
+      context: ./
+    container_name: node-app
+    ports:
+      - 3000:3000
+    volumes:
+      - ./app:/usr/src/app
+    tty: true
+    networks:
+      - ch2_net
+    depends_on:
+      - mysqldb
+
+  mysqldb:
+    image: mysql:5.7
+    container_name: mysql-db
+    command: --innodb-use-native-aio=0
+    restart: always
+    tty: true
+    volumes:
+      - ./mysql:/var/lib/mysql
+      - ./db_startup:/docker-entrypoint-initdb.d
+    environment:
+      - MYSQL_DATABASE=nodedb
+      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      - ch2_net
+
+networks:
+  ch2_net:
+    driver: bridge
